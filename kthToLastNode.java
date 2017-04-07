@@ -1,10 +1,22 @@
   public LinkedListNode kthToLastNode(int k, LinkedListNode head) {
 
+    if (k < 1) {
+        throw new IllegalArgumentException("Impossible to find less than first to last node: " + k);
+    }
+
     LinkedListNode leftNode  = head;
     LinkedListNode rightNode = head;
 
     // move rightNode to the kth node
     for (int x = 0; x < k - 1; x++) {
+
+        // but along the way, if a rightNode doesn't have a next,
+        // then k is greater than the length of the list and there
+        // can't be a kth-to-last node! we'll raise an error
+        if (rightNode.next == null) {
+            throw new IllegalArgumentException("k is larger than the length of the linked list: " + k);
+        }
+
         rightNode = rightNode.next;
     }
 
